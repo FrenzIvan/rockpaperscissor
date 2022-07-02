@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script
+			src="https://kit.fontawesome.com/3ca15438d5.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+			crossorigin="anonymous"
+		></script>
+		<div class="container-fluid">
+			<div class="scoress d-flex justify-content-around">
+				<h2 style="color: lime">User Score: <span id="userScore">0</span></h2>
+				<h2 style="color: red">Computer Score:<span id="computerScore">0</span></h2>
+			</div>
+			<div class="output d-flex justify-content-around align-items-center">
+				<img src="bg.jpg" class="bg" />
+				<h1 id="aiChoice" style="color: lime" class="texts"></h1>
+
+				<h1 id="myChoice" style="color: red" class="texts"></h1>
+				<h1 id="result" class="texts"></h1>
+			</div>
+			<br />
+			<br /><br />
+			<div class="btns d-flex justify-content-around">
+				<button id="rock" class="hands" onclick="choice('rock')">
+					<i class="fa-solid fa-hand-back-fist"></i>
+				</button>
+
+				<button id="paper" class="hands" onclick="choice('paper')">
+					<i class="fa-solid fa-hand"></i>
+				</button>
+
+				<button id="scissor" class="hands" onclick="choice('scissor')">
+					<i class="fa-solid fa-hand-scissors"></i>
+				</button>
+			</div>
+			<div class="ulList">
+				<h4 style="color: white">Match History</h4>
+				<ul id="matchHistory"></ul>
+			</div>
+			<br />
+		</div>
+		<!-- display -->
+		<script>
+			let [computer_points, users_points] = [0, 0];
+			let res = document.getElementById("result");
+			let options = {
+				rock: {
+					rock: "draw",
+					scissor: "win",
+					paper: "lose",
+				},
+				scissor: {
+					rock: "lose",
+					scissor: "draw",
+					paper: "win",
+				},
+				paper: {
+					rock: "win",
+					scissor: "lose",
+					paper: "draw",
+				},
+			};
+			function choice(input) {
+				let list = document.getElementById("matchHistory");
+				let li = document.createElement("li");
+				var gameOptions = ["rock", "paper", "scissor"];
+				var num = Math.floor(Math.random() * 3);
+				let botChoice = gameOptions[num];
+				//bot choice created
+				document.getElementById("myChoice").innerHTML = "Computer :  " + botChoice;
+				document.getElementById("aiChoice").innerHTML = "User :  " + input;
+				//output of choices
+				switch (options[input][botChoice]) {
+					case "win":
+						res.innerHTML = " You Win";
+						users_points++;
+						li.textContent = "Win";
+						list.appendChild(li);
+						li.style.color = "green";
+						break;
+					case "lose":
+						res.innerHTML = " You Lose ";
+						computer_points++;
+						li.textContent = "Lose";
+						list.appendChild(li);
+						li.style.color = "red";
+						break;
+
+					default:
+						res.innerHTML = " DRAW";
+						li.textContent = "Draw";
+						list.appendChild(li);
+						li.style.color = "white";
+						break;
+				}
+				document.getElementById("computerScore").innerHTML = computer_points;
+				document.getElementById("userScore").innerHTML = users_points;
+			}
+		</script>
+	</body>
+</html>
